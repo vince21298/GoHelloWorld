@@ -1,0 +1,36 @@
+swagger: "2.0"
+info:
+  title: Ping API
+  description: Endpoints to receive a pong response
+  version: 1.0.0
+host: api.example.com
+basePath: /v0
+schemes:
+  - http
+paths:
+  /:
+    get:
+      summary: Homepage
+      description: Return a response to the user that this is the homepage
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return a string
+          schema:
+            type: "string"
+  /ping:
+    post:
+      summary: Return a pong response if the request contains ping
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          schema:
+            $ref: "#/definitions/PingBody"
+definitions:
+  PingBody:
+    type: object
+    properties:
+      body:
+        type: "string"
