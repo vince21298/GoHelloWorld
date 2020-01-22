@@ -10,11 +10,11 @@ type post struct {
 	Body string
 }
 
-func welcome(w http.ResponseWriter, r *http.Request) {
+func GetWelcome(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Welcome to Homepage!"))
 }
 
-func ping(w http.ResponseWriter, r *http.Request) {
+func PostPing(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var p post
 	err := decoder.Decode(&p)
@@ -30,7 +30,7 @@ func ping(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/v0", welcome).Methods("GET")
-	router.HandleFunc("/v0/ping", ping).Methods("POST")
+	router.HandleFunc("/v0", GetWelcome).Methods("GET")
+	router.HandleFunc("/v0/ping", PostPing).Methods("POST")
 	http.ListenAndServe(":8000", router)
 }
